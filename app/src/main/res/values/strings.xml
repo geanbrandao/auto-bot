@@ -19,6 +19,7 @@
     <string name="fragment_signup_input_hint_confirm_password">Confirmar senha</string>
 
     <string name="fragment_signup_button_signup">Cadastrar</string>
+    <string name="fragment_signup_action_signin">Login</string>
     <!-- FRAGMENT SIGNUP -->
 
 
@@ -32,5 +33,6 @@
     <string name="fragment_signin_input_hint_email">E-mail</string>
 
     <string name="fragment_signin_button_signin">Entrar</string>
+    <string name="fragment_signin_action_signup">Criar conta</string>
     <!-- FRAGMENT SIGNIN -->
 </resources>

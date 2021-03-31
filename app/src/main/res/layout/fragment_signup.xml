@@ -130,6 +130,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_confirm_password" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_action_signin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_margin_large"
+            android:text="@string/fragment_signup_action_signin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_signup"
+            style="@style/style_text_action" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

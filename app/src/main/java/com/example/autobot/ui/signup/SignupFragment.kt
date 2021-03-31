@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.example.autobot.R
 import com.example.autobot.databinding.FragmentSignupBinding
 
 class SignupFragment : Fragment() {
@@ -22,7 +24,15 @@ class SignupFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentSignupBinding.inflate(inflater)
 
+        createListeners()
+
         return binding.root
+    }
+
+    private fun createListeners() {
+        binding.textActionSignin.setOnClickListener {
+            findNavController().navigate(R.id.action_signupFragment_to_signinFragment)
+        }
     }
 
 }
