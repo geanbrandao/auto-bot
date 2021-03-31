@@ -1,28 +1,50 @@
 package com.example.autobot.ui.signup
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.autobot.databinding.FragmentSignupBinding
+import com.example.autobot.mvp.SignUpContract
+import com.example.autobot.mvp.SignUpPresenter
+import com.google.android.material.snackbar.Snackbar
 
-class SignupFragment : Fragment() {
+class SignupFragment : Fragment(), SignUpContract.View {
 
-    companion object {
-        fun newInstance() = SignupFragment()
-    }
-
+    override lateinit var presenter: SignUpPresenter
     private lateinit var binding: FragmentSignupBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentSignupBinding.inflate(inflater)
+        presenter = SignUpPresenter(this)
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.buttonSignup.setOnClickListener {
+            presenter.isValid()
+        }
+    }
+
+    override fun displayErrorMessage() {
+        TODO("Not yet implemented")
+    }
+
+    override fun displaySuccessToast() {
+        Snackbar.make(binding.root, "Cadastro realizado", Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun goToHomeFragment() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
+    }
 }
