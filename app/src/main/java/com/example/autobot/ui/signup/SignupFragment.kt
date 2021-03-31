@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.example.autobot.R
 import androidx.fragment.app.Fragment
 import com.example.autobot.databinding.FragmentSignupBinding
 import com.example.autobot.mvp.SignUpContract
@@ -22,7 +24,15 @@ class SignupFragment : Fragment(), SignUpContract.View {
         binding = FragmentSignupBinding.inflate(inflater)
         presenter = SignUpPresenter(this)
 
+        createListeners()
+
         return binding.root
+    }
+
+    private fun createListeners() {
+        binding.textActionSignin.setOnClickListener {
+            findNavController().navigate(R.id.action_signupFragment_to_signinFragment)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

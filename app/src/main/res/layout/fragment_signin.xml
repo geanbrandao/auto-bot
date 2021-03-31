@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_window_background"
     android:clipToPadding="false"
     android:padding="@dimen/size_padding_default"
     android:paddingBottom="@dimen/size_padding_scroll"
-    tools:context=".ui.signup.SignupFragment">
+    tools:context=".ui.signin.SigninFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,10 +18,10 @@
             style="@style/style_text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/fragment_signin_text_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/fragment_signup_text_title" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_label_email"
@@ -30,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_margin_large"
-            android:text="@string/fragment_signup_text_label_email"
+            android:text="@string/fragment_signin_text_label_email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_title" />
@@ -41,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_margin_default"
-            android:hint="@string/fragment_signup_input_hint_email"
+            android:hint="@string/fragment_signin_input_hint_email"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,97 +48,49 @@
             app:layout_constraintTop_toBottomOf="@+id/text_label_email" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_label_name"
+            android:id="@+id/text_label_password"
             style="@style/style_text_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_margin_large"
-            android:text="@string/fragment_signup_text_label_name"
+            android:text="@string/fragment_signin_text_label_new_password"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_email" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/input_name"
+            android:id="@+id/input_password"
             style="@style/style_input_default"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_margin_default"
-            android:hint="@string/fragment_signup_input_hint_name"
-            android:imeOptions="actionNext"
-            android:inputType="textCapWords"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_label_name" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_label_new_password"
-            style="@style/style_text_label"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_margin_large"
-            android:text="@string/fragment_signup_text_label_new_password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_name" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/input_new_password"
-            style="@style/style_input_default"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_margin_default"
-            android:hint="@string/fragment_signup_input_hint_new_password"
+            android:hint="@string/fragment_signin_input_hint_new_password"
             android:imeOptions="actionNext"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_label_new_password" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_label_confirm_password"
-            style="@style/style_text_label"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_margin_large"
-            android:text="@string/fragment_signup_text_label_confirm_password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_new_password" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/input_confirm_password"
-            style="@style/style_input_default"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_margin_default"
-            android:hint="@string/fragment_signup_input_hint_confirm_password"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_label_confirm_password" />
+            app:layout_constraintTop_toBottomOf="@+id/text_label_password" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_signup"
+            android:id="@+id/button_signin"
             style="@style/style_button_default"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_margin_extra_large"
-            android:enabled="true"
-            android:text="@string/fragment_signup_button_signup"
+            android:text="@string/fragment_signin_button_signin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_confirm_password" />
+            app:layout_constraintTop_toBottomOf="@+id/input_password" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_action_signin"
+            android:id="@+id/text_action_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_margin_large"
-            android:text="@string/fragment_signup_action_signin"
+            android:text="@string/fragment_signin_action_signup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_signup"
+            app:layout_constraintTop_toBottomOf="@+id/button_signin"
             style="@style/style_text_action" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

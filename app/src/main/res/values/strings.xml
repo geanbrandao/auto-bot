@@ -2,13 +2,37 @@
     <string name="app_name">autoBot</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="fragment_signup_input_hint_email">E-mail</string>
-    <string name="fragment_signup_input_hint_name">Nome</string>
-    <string name="fragment_signup_input_hint_new_password">Senha</string>
-    <string name="fragment_signup_input_hint_confirm_password">Confirmar senha</string>
+
+    <!-- FRAGMENT SIGNUP -->
+    <string name="fragment_signup_text_title">Cadastre-se</string>
+
     <string name="fragment_signup_text_label_email">Digite seu e-mail</string>
+    <string name="fragment_signup_input_hint_email">E-mail</string>
+
     <string name="fragment_signup_text_label_name">Digite seu nome</string>
+    <string name="fragment_signup_input_hint_name">Nome</string>
+
     <string name="fragment_signup_text_label_new_password">Digite uma senha</string>
+    <string name="fragment_signup_input_hint_new_password">Senha</string>
+
     <string name="fragment_signup_text_label_confirm_password">Confirme a senha</string>
+    <string name="fragment_signup_input_hint_confirm_password">Confirmar senha</string>
+
     <string name="fragment_signup_button_signup">Cadastrar</string>
+    <string name="fragment_signup_action_signin">Login</string>
+    <!-- FRAGMENT SIGNUP -->
+
+
+    <!-- FRAGMENT SIGNIN -->
+    <string name="fragment_signin_text_title">Login</string>
+
+    <string name="fragment_signin_text_label_new_password">Digite uma senha</string>
+    <string name="fragment_signin_input_hint_new_password">Senha</string>
+
+    <string name="fragment_signin_text_label_email">Digite seu e-mail</string>
+    <string name="fragment_signin_input_hint_email">E-mail</string>
+
+    <string name="fragment_signin_button_signin">Entrar</string>
+    <string name="fragment_signin_action_signup">Criar conta</string>
+    <!-- FRAGMENT SIGNIN -->
 </resources>
