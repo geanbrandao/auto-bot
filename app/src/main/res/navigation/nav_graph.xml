@@ -10,4 +10,9 @@
         android:name="com.example.autobot.ui.signup.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" />
+    <fragment
+        android:id="@+id/signinFragment"
+        android:name="com.example.autobot.SigninFragment"
+        android:label="fragment_signin"
+        tools:layout="@layout/fragment_signin" />
 </navigation>
