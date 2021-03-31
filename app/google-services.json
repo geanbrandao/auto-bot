@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "309426030107",
+    "project_id": "auto-bot-321fb",
+    "storage_bucket": "auto-bot-321fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309426030107:android:32140bc789c0ce1aff1abe",
+        "android_client_info": {
+          "package_name": "com.example.autobot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309426030107-rp67nkuc7oevmni0qbkrrapjkv0trf2d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxKufsdOnxANGJK2YMxj_hmpg-n0e8ExU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309426030107-rp67nkuc7oevmni0qbkrrapjkv0trf2d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
