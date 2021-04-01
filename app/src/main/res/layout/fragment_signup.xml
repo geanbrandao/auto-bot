@@ -58,6 +58,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_email" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_error_name"
+            style="@style/style_label_error"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/input_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_name"
+            tools:text="Campo inválido" />
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/input_name"
             style="@style/style_input_default"
@@ -125,7 +136,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_margin_extra_large"
-            android:enabled="true"
+            android:enabled="false"
             android:text="@string/fragment_signup_button_signup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
