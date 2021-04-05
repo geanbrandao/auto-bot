@@ -26,22 +26,6 @@ fun String.isValidEmail(): String {
     return NO_ERROR_MESSAGE
 }
 
-fun String.isValidNewPassword(confirmPassword: String): String {
-    if (this.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
-    if (this.length < 6) return ERROR_MESSAGE_PASSWORD_MIN_LENGHT
-    if (confirmPassword.trim().isEmpty()) return NO_ERROR_MESSAGE
-    if (this != confirmPassword) return ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH
-    return NO_ERROR_MESSAGE
-}
-
-fun String.isValidConfirmPassword(newPassword: String): String {
-    if (this.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
-    if (this.length < 6) return ERROR_MESSAGE_PASSWORD_MIN_LENGHT
-    if (newPassword.trim().isEmpty()) return NO_ERROR_MESSAGE
-    if (this != newPassword) return ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH
-    return NO_ERROR_MESSAGE
-}
-
 fun String.isValidPassword(): String {
     if (this.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
     if (this.length < 6) return ERROR_MESSAGE_PASSWORD_MIN_LENGHT
@@ -49,6 +33,7 @@ fun String.isValidPassword(): String {
 }
 
 fun String.isPasswordsMatchs(confirmPassword: String): String {
+    if (this.trim().isEmpty() || confirmPassword.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
     if (this != confirmPassword) return ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH
     return NO_ERROR_MESSAGE
 }

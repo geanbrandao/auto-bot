@@ -23,12 +23,20 @@ interface SignUpContract {
         fun isValid()
         fun isValidName(name: String, labelError: AppCompatTextView, input: AppCompatEditText)
         fun isValidEmail(email: String, labelError: AppCompatTextView, input: AppCompatEditText)
-        fun isPasswordsValid(
+        fun isValidNewPassword(
+            newPassword: String,
+            labelErrorNewPassword: AppCompatTextView,
+            inputNewPassword: AppCompatEditText,
+        )
+        fun isValidConfirmPassword(
+            confirmPassword: String,
+            labelErrorConfirmPassword: AppCompatTextView,
+            inputConfirmPassword: AppCompatEditText,
+        )
+        fun isPasswordMatchs(
             newPassword: String,
             confirmPassword: String,
-            labelErrorNewPassword: AppCompatTextView,
             labelErrorConfirmPassword: AppCompatTextView,
-            inputNewPassword: AppCompatEditText,
             inputConfirmPassword: AppCompatEditText
         )
     }

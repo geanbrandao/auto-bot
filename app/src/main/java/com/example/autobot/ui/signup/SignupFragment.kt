@@ -68,23 +68,29 @@ class SignupFragment : Fragment(), SignUpContract.View {
         }
 
         binding.inputNewPassword.doOnTextChanged { text, _, _, _ ->
-            presenter.isPasswordsValid(
+            presenter.isValidNewPassword(
+                newPassword = text.toString(),
+                labelErrorNewPassword = binding.labelErrorNewPassword,
+                inputNewPassword = binding.inputNewPassword,
+            )
+            presenter.isPasswordMatchs(
                 newPassword = text.toString(),
                 confirmPassword = binding.inputConfirmPassword.text.toString(),
-                labelErrorNewPassword = binding.labelErrorNewPassword,
                 labelErrorConfirmPassword = binding.labelErrorConfirmPassword,
-                inputNewPassword = binding.inputNewPassword,
                 inputConfirmPassword = binding.inputConfirmPassword
             )
         }
 
         binding.inputConfirmPassword.doOnTextChanged { text, _, _, _ ->
-            presenter.isPasswordsValid(
+            presenter.isValidConfirmPassword(
+                confirmPassword = text.toString(),
+                labelErrorConfirmPassword = binding.labelErrorConfirmPassword,
+                inputConfirmPassword = binding.inputConfirmPassword,
+            )
+            presenter.isPasswordMatchs(
                 newPassword = binding.inputNewPassword.text.toString(),
                 confirmPassword = text.toString(),
-                labelErrorNewPassword = binding.labelErrorNewPassword,
                 labelErrorConfirmPassword = binding.labelErrorConfirmPassword,
-                inputNewPassword = binding.inputNewPassword,
                 inputConfirmPassword = binding.inputConfirmPassword
             )
         }

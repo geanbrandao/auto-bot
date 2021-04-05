@@ -23,16 +23,8 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
     ) {
         val errorMessage = email.isValidEmail()
         _isValidEmail = errorMessage.isEmpty()
+        _isValidEmail.handleWithErrorOnInput(labelError, input, errorMessage)
         view?.enableButtonCreate(isEnabled = isEnabled())
-        if (_isValidEmail) {
-            view?.hideErrorOnInput(labelError = labelError, input = input)
-        } else {
-            view?.showErrorOnInput(
-                errorMessage = errorMessage,
-                labelError = labelError,
-                input = input
-            )
-        }
     }
 
     override fun isValidName(
@@ -42,8 +34,63 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
     ) {
         val errorMessage = name.isValidName()
         _isValidName = errorMessage.isEmpty()
+        _isValidName.handleWithErrorOnInput(labelError, input, errorMessage)
         view?.enableButtonCreate(isEnabled = isEnabled())
-        if (_isValidName) {
+    }
+
+    override fun isValidNewPassword(
+        newPassword: String,
+        labelErrorNewPassword: AppCompatTextView,
+        inputNewPassword: AppCompatEditText,
+    ) {
+        val errorMessageNewPassword = newPassword.isValidPassword()
+        _isValidNewPassword = errorMessageNewPassword.isEmpty()
+        _isValidNewPassword.handleWithErrorOnInput(
+            labelErrorNewPassword,
+            inputNewPassword,
+            errorMessageNewPassword
+        )
+        view?.enableButtonCreate(isEnabled = isEnabled())
+    }
+
+    override fun isValidConfirmPassword(
+        confirmPassword: String,
+        labelErrorConfirmPassword: AppCompatTextView,
+        inputConfirmPassword: AppCompatEditText,
+    ) {
+        val errorMessageConfirmPassword = confirmPassword.isValidPassword()
+        _isValidConfirmPassword = errorMessageConfirmPassword.isEmpty()
+        _isValidConfirmPassword.handleWithErrorOnInput(
+            labelErrorConfirmPassword,
+            inputConfirmPassword,
+            errorMessageConfirmPassword
+        )
+        view?.enableButtonCreate(isEnabled = isEnabled())
+    }
+
+    override fun isPasswordMatchs(
+        newPassword: String,
+        confirmPassword: String,
+        labelErrorConfirmPassword: AppCompatTextView,
+        inputConfirmPassword: AppCompatEditText
+    ) {
+        // than check if they match
+        val errorMessageMatchs = newPassword.isPasswordsMatchs(confirmPassword)
+        _isPasswordsMatchs = errorMessageMatchs.isEmpty()
+        _isPasswordsMatchs.handleWithErrorOnInput(labelErrorConfirmPassword, inputConfirmPassword, errorMessageMatchs)
+        view?.enableButtonCreate(isEnabled = isEnabled())
+    }
+
+    override fun onDestroy() {
+        view = null
+    }
+
+    private fun Boolean.handleWithErrorOnInput(
+        labelError: AppCompatTextView,
+        input: AppCompatEditText,
+        errorMessage: String
+    ) {
+        if (this) {
             view?.hideErrorOnInput(labelError = labelError, input = input)
         } else {
             view?.showErrorOnInput(
@@ -52,69 +99,6 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
                 input = input
             )
         }
-    }
-
-    override fun isPasswordsValid(
-        newPassword: String,
-        confirmPassword: String,
-        labelErrorNewPassword: AppCompatTextView,
-        labelErrorConfirmPassword: AppCompatTextView,
-        inputNewPassword: AppCompatEditText,
-        inputConfirmPassword: AppCompatEditText
-    ) {
-        val errorMessageNewPassword = newPassword.isValidPassword()
-        _isValidNewPassword = errorMessageNewPassword.isEmpty()
-        val errorMessageConfirmPassword = confirmPassword.isValidPassword()
-        _isValidConfirmPassword = errorMessageConfirmPassword.isEmpty()
-        // first check if both passwors are ok
-        // caso um dos dois estejam invalidos faz SÓ essa parte do codigo
-        // pq não precisa dar match entre os dois
-        if (!_isValidNewPassword or !_isValidConfirmPassword) {
-            if (_isValidNewPassword) {
-                view?.hideErrorOnInput(labelError = labelErrorNewPassword, input = inputNewPassword)
-            } else {
-                view?.showErrorOnInput(
-                    errorMessage = errorMessageNewPassword,
-                    labelError = labelErrorNewPassword,
-                    input = inputNewPassword
-                )
-                return
-            }
-            if (_isValidConfirmPassword) {
-                view?.hideErrorOnInput(
-                    labelError = labelErrorConfirmPassword,
-                    input = inputConfirmPassword
-                )
-            } else {
-                view?.showErrorOnInput(
-                    errorMessage = errorMessageConfirmPassword,
-                    labelError = labelErrorConfirmPassword,
-                    input = inputConfirmPassword
-                )
-                return
-            }
-            return
-        }
-        // than check if they match
-        val errorMessageMatchs = newPassword.isPasswordsMatchs(confirmPassword)
-        _isPasswordsMatchs = errorMessageMatchs.isEmpty()
-        if (_isPasswordsMatchs) {
-            view?.hideErrorOnInput(
-                labelError = labelErrorConfirmPassword,
-                input = inputConfirmPassword
-            )
-        } else {
-            view?.showErrorOnInput(
-                errorMessage = errorMessageMatchs,
-                labelError = labelErrorConfirmPassword,
-                input = inputConfirmPassword
-            )
-        }
-        view?.enableButtonCreate(isEnabled = isEnabled())
-    }
-
-    override fun onDestroy() {
-        view = null
     }
 
     private fun isEnabled(): Boolean {
