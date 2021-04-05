@@ -49,6 +49,18 @@
             app:layout_constraintTop_toBottomOf="@+id/text_label_email" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_error_email"
+            style="@style/style_label_error"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/input_email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_email"
+            tools:text="Campo inválido"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_label_name"
             style="@style/style_text_label"
             android:layout_width="0dp"
@@ -70,6 +82,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_label_name" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_error_name"
+            style="@style/style_label_error"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/input_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_name"
+            tools:text="Campo inválido"
+            tools:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_label_new_password"
@@ -96,6 +120,18 @@
             app:layout_constraintTop_toBottomOf="@+id/text_label_new_password" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_error_new_password"
+            style="@style/style_label_error"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/input_new_password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_new_password"
+            tools:text="Campo inválido"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_label_confirm_password"
             style="@style/style_text_label"
             android:layout_width="0dp"
@@ -119,13 +155,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_label_confirm_password" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_error_confirm_password"
+            style="@style/style_label_error"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/input_confirm_password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_confirm_password"
+            tools:text="Campo inválido"
+            tools:visibility="visible" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_signup"
             style="@style/style_button_default"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_margin_extra_large"
-            android:enabled="true"
+            android:enabled="false"
             android:text="@string/fragment_signup_button_signup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -133,14 +181,14 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_action_signin"
+            style="@style/style_text_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_margin_large"
             android:text="@string/fragment_signup_action_signin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_signup"
-            style="@style/style_text_action" />
+            app:layout_constraintTop_toBottomOf="@+id/button_signup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

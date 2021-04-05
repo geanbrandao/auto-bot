@@ -36,4 +36,10 @@
         <item name="android:textColor">?colorPrimary</item>
         <item name="android:textSize">@dimen/size_text_default</item>
     </style>
+
+    <style name="style_label_error">
+        <item name="android:textColor">@color/color_text_error</item>
+        <item name="android:textSize">@dimen/size_text_small</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
 </resources>

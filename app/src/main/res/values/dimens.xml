@@ -11,4 +11,5 @@
     <dimen name="size_margin_default">8dp</dimen>
     <dimen name="size_margin_extra_large">32dp</dimen>
     <dimen name="size_padding_scroll">32dp</dimen>
+    <dimen name="size_text_small">10sp</dimen>
 </resources>
