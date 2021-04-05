@@ -4,19 +4,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.autobot.R
-import androidx.fragment.app.Fragment
 import com.example.autobot.databinding.FragmentSignupBinding
-import com.example.autobot.hide
+import com.example.autobot.extensions.hide
+import com.example.autobot.extensions.show
 import com.example.autobot.mvp.SignUpContract
 import com.example.autobot.mvp.SignUpPresenter
-import com.example.autobot.show
 import com.google.android.material.snackbar.Snackbar
 
 class SignupFragment : Fragment(), SignUpContract.View {
+
+    companion object {
+        const val NO_ERROR_MESSAGE = ""
+        const val ERROR_MESSAGE_REQUIRED_FIELD = "Campo obrigatorio"
+        const val ERROR_MESSAGE_NEED_TWO_NAMES = "Necessário nome e sobrenome"
+        const val ERROR_MESSAGE_FIRST_NAME = "Primeiro nome precisa ter mais de 2 letras"
+        const val ERROR_MESSAGE_SECOND_NAME = "Segundo nome precisa ter mais de 2 letras"
+
+        const val ERROR_MESSAGE_INVALID_EMAIL = "E-mail inválido"
+        const val ERROR_MESSAGE_PASSWORD_MIN_LENGHT = "A senha precisa ter no minimo 6 caracters"
+        const val ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH = "Senhas não são iguais"
+
+    }
 
     override lateinit var presenter: SignUpPresenter
     private lateinit var binding: FragmentSignupBinding
@@ -44,8 +59,34 @@ class SignupFragment : Fragment(), SignUpContract.View {
             presenter.isValid()
         }
 
+        binding.inputEmail.doOnTextChanged { text, _, _, _ ->
+            presenter.isValidEmail(text.toString(), binding.labelErrorEmail, binding.inputEmail)
+        }
+
         binding.inputName.doOnTextChanged { text, _, _, _ ->
-            presenter.isValidName(text.toString(), binding.labelErrorName)
+            presenter.isValidName(text.toString(), binding.labelErrorName, binding.inputName)
+        }
+
+        binding.inputNewPassword.doOnTextChanged { text, _, _, _ ->
+            presenter.isPasswordsValid(
+                newPassword = text.toString(),
+                confirmPassword = binding.inputConfirmPassword.text.toString(),
+                labelErrorNewPassword = binding.labelErrorNewPassword,
+                labelErrorConfirmPassword = binding.labelErrorConfirmPassword,
+                inputNewPassword = binding.inputNewPassword,
+                inputConfirmPassword = binding.inputConfirmPassword
+            )
+        }
+
+        binding.inputConfirmPassword.doOnTextChanged { text, _, _, _ ->
+            presenter.isPasswordsValid(
+                newPassword = binding.inputNewPassword.text.toString(),
+                confirmPassword = text.toString(),
+                labelErrorNewPassword = binding.labelErrorNewPassword,
+                labelErrorConfirmPassword = binding.labelErrorConfirmPassword,
+                inputNewPassword = binding.inputNewPassword,
+                inputConfirmPassword = binding.inputConfirmPassword
+            )
         }
     }
 
@@ -65,13 +106,20 @@ class SignupFragment : Fragment(), SignUpContract.View {
         binding.buttonSignup.isEnabled = isEnabled
     }
 
-    override fun showErrorOnInput(errorMessage: String, labelError: AppCompatTextView) {
+    override fun showErrorOnInput(
+        errorMessage: String,
+        labelError: AppCompatTextView,
+        input: AppCompatEditText
+    ) {
         labelError.text = errorMessage
         labelError.show()
+        input.background =
+            ContextCompat.getDrawable(requireContext(), R.drawable.bg_input_default_error)
     }
 
-    override fun hideErrorOnInput(labelError: AppCompatTextView) {
+    override fun hideErrorOnInput(labelError: AppCompatTextView, input: AppCompatEditText) {
         labelError.hide()
+        input.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_input_default)
     }
 
     override fun onDestroy() {
