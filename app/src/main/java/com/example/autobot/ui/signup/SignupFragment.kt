@@ -17,6 +17,8 @@ import com.example.autobot.extensions.show
 import com.example.autobot.mvp.SignUpContract
 import com.example.autobot.mvp.SignUpPresenter
 import com.google.android.material.snackbar.Snackbar
+import java.util.regex.Pattern
+import java.util.regex.Pattern.compile
 
 class SignupFragment : Fragment(), SignUpContract.View {
 
@@ -28,9 +30,18 @@ class SignupFragment : Fragment(), SignUpContract.View {
         const val ERROR_MESSAGE_SECOND_NAME = "Segundo nome precisa ter mais de 2 letras"
 
         const val ERROR_MESSAGE_INVALID_EMAIL = "E-mail inválido"
+
         const val ERROR_MESSAGE_PASSWORD_MIN_LENGHT = "A senha precisa ter no minimo 6 caracters"
         const val ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH = "Senhas não são iguais"
-
+        val emailRegex: Pattern = compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+        )
     }
 
     override lateinit var presenter: SignUpPresenter
