@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.autobot.R
 import com.example.autobot.databinding.FragmentSigninBinding
+import com.example.autobot.mvp.signin.SigninContract
+import com.example.autobot.mvp.signin.SigninPresenter
 
-class SigninFragment : Fragment() {
+class SigninFragment : Fragment(), SigninContract.View {
 
+    override lateinit var presenter: SigninPresenter
     private lateinit var binding: FragmentSigninBinding
 
     override fun onCreateView(

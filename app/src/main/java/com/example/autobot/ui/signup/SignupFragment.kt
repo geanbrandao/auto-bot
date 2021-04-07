@@ -14,8 +14,8 @@ import com.example.autobot.R
 import com.example.autobot.databinding.FragmentSignupBinding
 import com.example.autobot.extensions.hide
 import com.example.autobot.extensions.show
-import com.example.autobot.mvp.SignUpContract
-import com.example.autobot.mvp.SignUpPresenter
+import com.example.autobot.mvp.signup.SignUpContract
+import com.example.autobot.mvp.signup.SignUpPresenter
 import com.google.android.material.snackbar.Snackbar
 import java.util.regex.Pattern
 import java.util.regex.Pattern.compile

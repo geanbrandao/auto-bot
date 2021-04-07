@@ -2,6 +2,8 @@ package com.example.autobot.mvp
 
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
+import com.example.autobot.mvp.signup.SignUpContract
+import com.example.autobot.mvp.signup.SignUpPresenter
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
