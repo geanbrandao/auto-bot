@@ -8,6 +8,7 @@ import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_PASS
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_REQUIRED_FIELD
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_SECOND_NAME
 import com.example.autobot.ui.signup.SignupFragment.Companion.NO_ERROR_MESSAGE
+import com.example.autobot.ui.signup.SignupFragment.Companion.emailRegex
 
 fun String.isValidName(): String {
     if (this.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
@@ -20,7 +21,7 @@ fun String.isValidName(): String {
 
 fun String.isValidEmail(): String {
     if (this.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
-    if (!android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()) {
+    if (!emailRegex.matcher(this).matches()) {
         return ERROR_MESSAGE_INVALID_EMAIL
     }
     return NO_ERROR_MESSAGE

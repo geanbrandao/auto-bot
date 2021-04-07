@@ -1,8 +1,15 @@
 package com.example.autobot.mvp
 
+import com.example.autobot.extensions.isPasswordsMatchs
+import com.example.autobot.extensions.isValidEmail
 import com.example.autobot.extensions.isValidName
+import com.example.autobot.extensions.isValidPassword
+import com.example.autobot.ui.signup.SignupFragment
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_FIRST_NAME
+import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_INVALID_EMAIL
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_NEED_TWO_NAMES
+import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH
+import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_PASSWORD_MIN_LENGHT
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_REQUIRED_FIELD
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_SECOND_NAME
 import com.example.autobot.ui.signup.SignupFragment.Companion.NO_ERROR_MESSAGE
@@ -22,6 +29,11 @@ class SignUpPresenterTest {
     private val view = mock(SignUpContract.View::class.java)
     private val presenter = SignUpPresenter(view)
 
+    companion object {
+        private const val IS_VALID: Boolean = true
+        private const val IS_NOT_VALID: Boolean = false
+    }
+
     @After
     fun done() {
         presenter.onDestroy()
@@ -40,7 +52,7 @@ class SignUpPresenterTest {
         val errorMessage = name.isValidName()
         val isValid = errorMessage.isEmpty()
         assertThat(errorMessage, `is`(equalTo(ERROR_MESSAGE_REQUIRED_FIELD)))
-        assertThat(isValid, `is`(equalTo(false)))
+        assertThat(isValid, `is`(equalTo(IS_NOT_VALID)))
     }
 
     @Test
@@ -49,7 +61,7 @@ class SignUpPresenterTest {
         val errorMessage = name.isValidName()
         val isValid = errorMessage.isEmpty()
         assertThat(errorMessage, `is`(equalTo(ERROR_MESSAGE_NEED_TWO_NAMES)))
-        assertThat(isValid, `is`(equalTo(false)))
+        assertThat(isValid, `is`(equalTo(IS_NOT_VALID)))
     }
 
     @Test
@@ -58,7 +70,7 @@ class SignUpPresenterTest {
         val errorMessage = name.isValidName()
         val isValid = errorMessage.isEmpty()
         assertThat(errorMessage, `is`(equalTo(ERROR_MESSAGE_FIRST_NAME)))
-        assertThat(isValid, `is`(equalTo(false)))
+        assertThat(isValid, `is`(equalTo(IS_NOT_VALID)))
     }
 
     @Test
@@ -67,7 +79,7 @@ class SignUpPresenterTest {
         val errorMessage = name.isValidName()
         val isValid = errorMessage.isEmpty()
         assertThat(errorMessage, `is`(equalTo(ERROR_MESSAGE_SECOND_NAME)))
-        assertThat(isValid, `is`(equalTo(false)))
+        assertThat(isValid, `is`(equalTo(IS_NOT_VALID)))
     }
 
     @Test
@@ -76,6 +88,100 @@ class SignUpPresenterTest {
         val errorMessage = name.isValidName()
         val isValid = errorMessage.isEmpty()
         assertThat(errorMessage, `is`(equalTo(NO_ERROR_MESSAGE)))
-        assertThat(isValid, `is`(equalTo(true)))
+        assertThat(isValid, `is`(equalTo(IS_VALID)))
+    }
+
+    @Test
+    fun `is valid return when email is empty`() {
+        val email = ""
+        val errorMessage = email.isValidEmail()
+        val isValid = errorMessage.isEmpty()
+        assertThat(errorMessage, `is`(equalTo(ERROR_MESSAGE_REQUIRED_FIELD)))
+        assertThat(isValid, `is`(equalTo(IS_NOT_VALID)))
+    }
+
+    @Test
+    fun `is valid return when email is invalid`() {
+        val email = "gean"
+        val errorMessage = email.isValidEmail()
+        val isValid = errorMessage.isEmpty()
+        assertThat(errorMessage, `is`(equalTo(ERROR_MESSAGE_INVALID_EMAIL)))
+        assertThat(isValid, `is`(equalTo(IS_NOT_VALID)))
+    }
+
+    @Test
+    fun `is valid return when email is valid`() {
+        val name = "gean@gmail.com"
+        val errorMessage = name.isValidEmail()
+        val isValid = errorMessage.isEmpty()
+        assertThat(errorMessage, `is`(equalTo(NO_ERROR_MESSAGE)))
+        assertThat(isValid, `is`(equalTo(IS_VALID)))
+    }
+
+    @Test
+    fun `is valid return when password is empty`() {
+        val password = ""
+        val errorMessage = password.isValidPassword()
+        val isValid = errorMessage.isEmpty()
+        assertThat(errorMessage, `is`(equalTo(ERROR_MESSAGE_REQUIRED_FIELD)))
+        assertThat(isValid, `is`(equalTo(IS_NOT_VALID)))
+    }
+
+    @Test
+    fun `is valid return when password is smaller than six`() {
+        val password = "23da"
+        val errorMessage = password.isValidPassword()
+        val isValid = errorMessage.isEmpty()
+        assertThat(errorMessage, `is`(equalTo(ERROR_MESSAGE_PASSWORD_MIN_LENGHT)))
+        assertThat(isValid, `is`(equalTo(IS_NOT_VALID)))
+    }
+
+    @Test
+    fun `is valid return when password is valid`() {
+        val password = "asd123"
+        val errorMessage = password.isValidPassword()
+        val isValid = errorMessage.isEmpty()
+        assertThat(errorMessage, `is`(equalTo(NO_ERROR_MESSAGE)))
+        assertThat(isValid, `is`(equalTo(IS_VALID)))
+    }
+
+    @Test
+    fun `is valid return when new password is empty`(){
+        val newPassword = ""
+        val confirmPassword = "asd123"
+        val errorMessage = newPassword.isPasswordsMatchs(confirmPassword = confirmPassword)
+        val isValid = errorMessage.isEmpty()
+        assertThat(errorMessage, `is`(equalTo(ERROR_MESSAGE_REQUIRED_FIELD)))
+        assertThat(isValid, `is`(equalTo(IS_NOT_VALID)))
+    }
+
+    @Test
+    fun `is valid return when confirm password is empty`(){
+        val newPassword = "asd123"
+        val confirmPassword = ""
+        val errorMessage = newPassword.isPasswordsMatchs(confirmPassword = confirmPassword)
+        val isValid = errorMessage.isEmpty()
+        assertThat(errorMessage, `is`(equalTo(ERROR_MESSAGE_REQUIRED_FIELD)))
+        assertThat(isValid, `is`(equalTo(IS_NOT_VALID)))
+    }
+
+    @Test
+    fun `is valid return when password dosent match`() {
+        val newPassword = "asd124"
+        val confirmPassword = "asd123"
+        val errorMessage = newPassword.isPasswordsMatchs(confirmPassword = confirmPassword)
+        val isValid = errorMessage.isEmpty()
+        assertThat(errorMessage, `is`(equalTo(ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH)))
+        assertThat(isValid, `is`(equalTo(IS_NOT_VALID)))
+    }
+
+    @Test
+    fun `is valid return when passwords matchs`() {
+        val newPassword = "asd123"
+        val confirmPassword = "asd123"
+        val errorMessage = newPassword.isPasswordsMatchs(confirmPassword = confirmPassword)
+        val isValid = errorMessage.isEmpty()
+        assertThat(errorMessage, `is`(equalTo(NO_ERROR_MESSAGE)))
+        assertThat(isValid, `is`(equalTo(IS_VALID)))
     }
 }
