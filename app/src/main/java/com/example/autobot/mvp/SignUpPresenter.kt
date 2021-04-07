@@ -3,10 +3,11 @@ package com.example.autobot.mvp
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import com.example.autobot.extensions.*
+import com.example.autobot.ui.signup.SignupFragment.Companion.MASK_PHONE_NUMBER
 
 class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.Presenter {
 
-    private var _isValidEmail: Boolean = false
+    private var _isValidPhone: Boolean = false
     private var _isValidName: Boolean = false
     private var _isValidNewPassword: Boolean = false
     private var _isValidConfirmPassword: Boolean = false
@@ -16,14 +17,29 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
         view?.displaySuccessToast()
     }
 
-    override fun isValidEmail(
-        email: String,
+    override fun formatPhoneInput(phone: String) {
+        val cleanPhoneNumber = phone.filter { it.isDigit() }
+        var mask = MASK_PHONE_NUMBER
+        cleanPhoneNumber.forEachIndexed { index, character ->
+            mask = mask.replaceFirst('#', character)
+        }
+        val delimiter = mask.lastOrNull { it.isDigit() }
+        val phoneMasked = delimiter?.let {
+            mask.replaceAfterLast(delimiter = it, "")
+        } ?: run {
+            ""
+        }
+        view?.fillPhoneInputWithMask(phoneMasked = phoneMasked)
+    }
+
+    override fun isValidPhone(
+        phone: String,
         labelError: AppCompatTextView,
         input: AppCompatEditText
     ) {
-        val errorMessage = email.isValidEmail()
-        _isValidEmail = errorMessage.isEmpty()
-        _isValidEmail.handleWithErrorOnInput(labelError, input, errorMessage)
+        val errorMessage = phone.isValidPhone()
+        _isValidPhone = errorMessage.isEmpty()
+        _isValidPhone.handleWithErrorOnInput(labelError, input, errorMessage)
         view?.enableButtonCreate(isEnabled = isEnabled())
     }
 
@@ -102,6 +118,6 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
     }
 
     private fun isEnabled(): Boolean {
-        return _isValidEmail and _isValidName and _isValidNewPassword and _isValidConfirmPassword and _isPasswordsMatchs
+        return _isValidPhone and _isValidName and _isValidNewPassword and _isValidConfirmPassword and _isPasswordsMatchs
     }
 }
