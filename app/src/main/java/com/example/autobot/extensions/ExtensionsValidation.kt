@@ -1,14 +1,14 @@
 package com.example.autobot.extensions
 
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_FIRST_NAME
-import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_INVALID_EMAIL
+import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_INVALID_PHONE
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_NEED_TWO_NAMES
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_PASSWORD_MIN_LENGHT
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_REQUIRED_FIELD
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_SECOND_NAME
+import com.example.autobot.ui.signup.SignupFragment.Companion.MASK_PHONE_NUMBER
 import com.example.autobot.ui.signup.SignupFragment.Companion.NO_ERROR_MESSAGE
-import com.example.autobot.ui.signup.SignupFragment.Companion.emailRegex
 
 fun String.isValidName(): String {
     if (this.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
@@ -19,10 +19,10 @@ fun String.isValidName(): String {
     return NO_ERROR_MESSAGE
 }
 
-fun String.isValidEmail(): String {
+fun String.isValidPhone(): String {
     if (this.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
-    if (!emailRegex.matcher(this).matches()) {
-        return ERROR_MESSAGE_INVALID_EMAIL
+    if (this.length < MASK_PHONE_NUMBER.length ) { //55981393424
+        return ERROR_MESSAGE_INVALID_PHONE
     }
     return NO_ERROR_MESSAGE
 }

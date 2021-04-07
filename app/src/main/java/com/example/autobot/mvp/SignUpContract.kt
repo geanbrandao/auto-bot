@@ -17,22 +17,26 @@ interface SignUpContract {
         )
 
         fun hideErrorOnInput(labelError: AppCompatTextView, input: AppCompatEditText)
+        fun fillPhoneInputWithMask(phoneMasked: String)
     }
 
     interface Presenter : BasePresenter {
         fun isValid()
         fun isValidName(name: String, labelError: AppCompatTextView, input: AppCompatEditText)
-        fun isValidEmail(email: String, labelError: AppCompatTextView, input: AppCompatEditText)
+        fun isValidPhone(phone: String, labelError: AppCompatTextView, input: AppCompatEditText)
+        fun formatPhoneInput(phone: String)
         fun isValidNewPassword(
             newPassword: String,
             labelErrorNewPassword: AppCompatTextView,
             inputNewPassword: AppCompatEditText,
         )
+
         fun isValidConfirmPassword(
             confirmPassword: String,
             labelErrorConfirmPassword: AppCompatTextView,
             inputConfirmPassword: AppCompatEditText,
         )
+
         fun isPasswordMatchs(
             newPassword: String,
             confirmPassword: String,
