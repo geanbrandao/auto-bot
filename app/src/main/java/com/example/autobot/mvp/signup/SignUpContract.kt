@@ -1,7 +1,9 @@
-package com.example.autobot.mvp
+package com.example.autobot.mvp.signup
 
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
+import com.example.autobot.mvp.BasePresenter
+import com.example.autobot.mvp.BaseView
 
 interface SignUpContract {
 
