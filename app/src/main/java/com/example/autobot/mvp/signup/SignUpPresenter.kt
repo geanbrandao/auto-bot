@@ -2,8 +2,11 @@ package com.example.autobot.mvp.signup
 
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
-import com.example.autobot.extensions.*
-import com.example.autobot.ui.signup.SignupFragment.Companion.MASK_PHONE_NUMBER
+import com.example.autobot.constants.Constants.MASK_PHONE_NUMBER
+import com.example.autobot.extensions.isPasswordsMatchs
+import com.example.autobot.extensions.isValidName
+import com.example.autobot.extensions.isValidPassword
+import com.example.autobot.extensions.isValidPhone
 
 class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.Presenter {
 
@@ -117,7 +120,7 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
         }
     }
 
-    private fun isEnabled(): Boolean {
+    fun isEnabled(): Boolean {
         return _isValidPhone and _isValidName and _isValidNewPassword and _isValidConfirmPassword and _isPasswordsMatchs
     }
 }

@@ -2,6 +2,7 @@ package com.example.autobot.ui.signup
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,6 @@ import com.example.autobot.mvp.signup.SignUpPresenter
 import com.google.android.material.snackbar.Snackbar
 import java.util.regex.Pattern
 import java.util.regex.Pattern.compile
-import android.text.TextWatcher
 
 class SignupFragment : Fragment(), SignUpContract.View {
 
@@ -44,8 +44,6 @@ class SignupFragment : Fragment(), SignUpContract.View {
                     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
                     ")+"
         )
-
-        const val MASK_PHONE_NUMBER = "(##) #####-####"
     }
 
     override lateinit var presenter: SignUpPresenter
@@ -60,33 +58,36 @@ class SignupFragment : Fragment(), SignUpContract.View {
         binding = FragmentSignupBinding.inflate(inflater)
         presenter = SignUpPresenter(this)
 
-        createListeners()
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        createListeners()
     }
 
     private fun createListeners() {
         binding.textActionSignin.setOnClickListener {
             findNavController().navigate(R.id.action_signupFragment_to_signinFragment)
         }
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.buttonSignup.setOnClickListener {
             presenter.isValid()
         }
 
-
         phoneTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // no implementation here
+            }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // no implementation here
+            }
 
             override fun afterTextChanged(s: Editable?) {
                 binding.inputPhone.removeTextChangedListener(this)
                 presenter.formatPhoneInput(s.toString())
             }
-
         }
 
 
