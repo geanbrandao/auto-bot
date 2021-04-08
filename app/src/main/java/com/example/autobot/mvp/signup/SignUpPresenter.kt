@@ -17,7 +17,7 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
     private var _isPasswordsMatchs: Boolean = false
 
     override fun isValid() {
-        view?.displaySuccessToast()
+        view?.goToSMSCodeValidationScreen()
     }
 
     override fun formatPhoneInput(phone: String) {
@@ -120,7 +120,7 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
         }
     }
 
-    fun isEnabled(): Boolean {
+    fun  isEnabled(): Boolean {
         return _isValidPhone and _isValidName and _isValidNewPassword and _isValidConfirmPassword and _isPasswordsMatchs
     }
 }

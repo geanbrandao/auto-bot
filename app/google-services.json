@@ -1,18 +1,27 @@
 {
   "project_info": {
     "project_number": "309426030107",
+    "firebase_url": "https://auto-bot-321fb-default-rtdb.firebaseio.com",
     "project_id": "auto-bot-321fb",
     "storage_bucket": "auto-bot-321fb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:309426030107:android:32140bc789c0ce1aff1abe",
+        "mobilesdk_app_id": "1:309426030107:android:5e85881319ecb459ff1abe",
         "android_client_info": {
           "package_name": "com.example.autobot"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "309426030107-sbkcmjt7u9u3smv91vcl7ohqm3vthrip.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.autobot",
+            "certificate_hash": "6d714c8b1f47f73b3caf225e28c7f686dd308bf3"
+          }
+        },
         {
           "client_id": "309426030107-rp67nkuc7oevmni0qbkrrapjkv0trf2d.apps.googleusercontent.com",
           "client_type": 3

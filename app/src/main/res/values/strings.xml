@@ -34,5 +34,8 @@
 
     <string name="fragment_signin_button_signin">Entrar</string>
     <string name="fragment_signin_action_signup">Criar conta</string>
+    <string name="fragment_validation_text_label">Um sms foi enviado para o número %s, preencha o campo abaixo com o código recebido.</string>
+    <string name="fragment_validation_text_title">Validar número de celular</string>
+    <string name="button_text_default_validate">Validar</string>
     <!-- FRAGMENT SIGNIN -->
 </resources>

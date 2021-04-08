@@ -10,7 +10,7 @@ interface SignUpContract {
     interface View : BaseView<SignUpPresenter> {
         fun displayErrorMessage()
         fun displaySuccessToast()
-        fun goToHomeFragment()
+        fun goToSMSCodeValidationScreen()
         fun enableButtonCreate(isEnabled: Boolean)
         fun showErrorOnInput(
             errorMessage: String,

@@ -1,14 +1,15 @@
 package com.example.autobot.extensions
 
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_FIRST_NAME
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_INVALID_PHONE
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_NEED_TWO_NAMES
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_PASSWORD_MIN_LENGHT
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_REQUIRED_FIELD
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_SECOND_NAME
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_SMS_CODE_LENGHT
 import com.example.autobot.constants.Constants.MASK_PHONE_NUMBER
-import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_FIRST_NAME
-import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_INVALID_PHONE
-import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_NEED_TWO_NAMES
-import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH
-import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_PASSWORD_MIN_LENGHT
-import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_REQUIRED_FIELD
-import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_SECOND_NAME
-import com.example.autobot.ui.signup.SignupFragment.Companion.NO_ERROR_MESSAGE
+import com.example.autobot.constants.Constants.NO_ERROR_MESSAGE
 
 fun String.isValidName(): String {
     if (this.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
@@ -21,7 +22,7 @@ fun String.isValidName(): String {
 
 fun String.isValidPhone(): String {
     if (this.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
-    if (this.length < MASK_PHONE_NUMBER.length ) { //55981393424
+    if (this.length < MASK_PHONE_NUMBER.length) { //55981393424
         return ERROR_MESSAGE_INVALID_PHONE
     }
     return NO_ERROR_MESSAGE
@@ -34,7 +35,15 @@ fun String.isValidPassword(): String {
 }
 
 fun String.isPasswordsMatchs(confirmPassword: String): String {
-    if (this.trim().isEmpty() || confirmPassword.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
+    if (this.trim().isEmpty() || confirmPassword.trim()
+            .isEmpty()
+    ) return ERROR_MESSAGE_REQUIRED_FIELD
     if (this != confirmPassword) return ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH
+    return NO_ERROR_MESSAGE
+}
+
+fun String.isValidSMSCode(): String {
+    if (this.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
+    if (this.length < 6) return ERROR_MESSAGE_SMS_CODE_LENGHT
     return NO_ERROR_MESSAGE
 }
