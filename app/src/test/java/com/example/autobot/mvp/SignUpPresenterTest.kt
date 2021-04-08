@@ -32,8 +32,8 @@ class SignUpPresenterTest {
     }
 
     @Test
-    fun `test view method when isValidEmail is called`() {
-        presenter.isValidEmail("emailText", textView, editText)
+    fun `test view method when isValidPhone is called`() {
+        presenter.isValidPhone("emailText", textView, editText)
 
         verify(view).enableButtonCreate(false)
     }

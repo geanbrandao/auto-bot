@@ -25,28 +25,28 @@
             tools:text="@string/fragment_signup_text_title" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_label_email"
+            android:id="@+id/text_label_phone"
             style="@style/style_text_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_margin_large"
-            android:text="@string/fragment_signup_text_label_email"
+            android:text="@string/fragment_signup_text_label_phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_title" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/input_email"
+            android:id="@+id/input_phone"
             style="@style/style_input_default"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_margin_default"
-            android:hint="@string/fragment_signup_input_hint_email"
+            android:hint="@string/fragment_signup_input_hint_phone"
             android:imeOptions="actionNext"
-            android:inputType="textEmailAddress"
+            android:inputType="phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_label_email" />
+            app:layout_constraintTop_toBottomOf="@+id/text_label_phone" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/label_error_email"
@@ -54,9 +54,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/input_email"
+            app:layout_constraintEnd_toEndOf="@+id/input_phone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_email"
+            app:layout_constraintTop_toBottomOf="@+id/input_phone"
             tools:text="Campo inválido"
             tools:visibility="visible" />
 
@@ -68,7 +68,7 @@
             android:layout_marginTop="@dimen/size_margin_large"
             android:text="@string/fragment_signup_text_label_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_email" />
+            app:layout_constraintTop_toBottomOf="@+id/input_phone" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/input_name"

@@ -1,6 +1,7 @@
 package com.example.autobot.ui.signup
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.example.autobot.mvp.signup.SignUpPresenter
 import com.google.android.material.snackbar.Snackbar
 import java.util.regex.Pattern
 import java.util.regex.Pattern.compile
+import android.text.TextWatcher
 
 class SignupFragment : Fragment(), SignUpContract.View {
 
@@ -29,7 +31,7 @@ class SignupFragment : Fragment(), SignUpContract.View {
         const val ERROR_MESSAGE_FIRST_NAME = "Primeiro nome precisa ter mais de 2 letras"
         const val ERROR_MESSAGE_SECOND_NAME = "Segundo nome precisa ter mais de 2 letras"
 
-        const val ERROR_MESSAGE_INVALID_EMAIL = "E-mail inválido"
+        const val ERROR_MESSAGE_INVALID_PHONE = "Número de celular inválido"
 
         const val ERROR_MESSAGE_PASSWORD_MIN_LENGHT = "A senha precisa ter no minimo 6 caracters"
         const val ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH = "Senhas não são iguais"
@@ -42,10 +44,14 @@ class SignupFragment : Fragment(), SignUpContract.View {
                     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
                     ")+"
         )
+
+        const val MASK_PHONE_NUMBER = "(##) #####-####"
     }
 
     override lateinit var presenter: SignUpPresenter
     private lateinit var binding: FragmentSignupBinding
+
+    private lateinit var phoneTextWatcher: TextWatcher
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,8 +76,24 @@ class SignupFragment : Fragment(), SignUpContract.View {
             presenter.isValid()
         }
 
-        binding.inputEmail.doOnTextChanged { text, _, _, _ ->
-            presenter.isValidEmail(text.toString(), binding.labelErrorEmail, binding.inputEmail)
+
+        phoneTextWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                binding.inputPhone.removeTextChangedListener(this)
+                presenter.formatPhoneInput(s.toString())
+            }
+
+        }
+
+
+        binding.inputPhone.addTextChangedListener(phoneTextWatcher)
+
+        binding.inputPhone.doOnTextChanged { text, _, _, _ ->
+            presenter.isValidPhone(text.toString(), binding.labelErrorEmail, binding.inputPhone)
         }
 
         binding.inputName.doOnTextChanged { text, _, _, _ ->
@@ -137,6 +159,12 @@ class SignupFragment : Fragment(), SignUpContract.View {
     override fun hideErrorOnInput(labelError: AppCompatTextView, input: AppCompatEditText) {
         labelError.hide()
         input.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_input_default)
+    }
+
+    override fun fillPhoneInputWithMask(phoneMasked: String) {
+        binding.inputPhone.setText(phoneMasked)
+        binding.inputPhone.setSelection(phoneMasked.length)
+        binding.inputPhone.addTextChangedListener(phoneTextWatcher)
     }
 
     override fun onDestroy() {

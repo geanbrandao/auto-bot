@@ -87,7 +87,7 @@ class ExtensionsValidationKtTest {
     @Test
     fun `is valid return when email is empty`() {
         val email = ""
-        val errorMessage = email.isValidEmail()
+        val errorMessage = email.isValidPhone()
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
@@ -100,13 +100,13 @@ class ExtensionsValidationKtTest {
     }
 
     @Test
-    fun `is valid return when email is invalid`() {
-        val email = "gean"
-        val errorMessage = email.isValidEmail()
+    fun `is valid return when phone is invalid`() {
+        val email = "(53) 981"
+        val errorMessage = email.isValidPhone()
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_INVALID_EMAIL))
+            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_INVALID_PHONE))
         )
         assertThat(
             isValid,
@@ -115,9 +115,9 @@ class ExtensionsValidationKtTest {
     }
 
     @Test
-    fun `is valid return when email is valid`() {
-        val name = "gean@gmail.com"
-        val errorMessage = name.isValidEmail()
+    fun `is valid return when phone is valid`() {
+        val name = "(53) 98139-3424"
+        val errorMessage = name.isValidPhone()
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
