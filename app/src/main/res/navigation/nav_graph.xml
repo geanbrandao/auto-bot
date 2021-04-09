@@ -23,8 +23,8 @@
             app:destination="@id/validation_fragment" />
 
         <argument
-            android:name="phone_number"
-            app:argType="string" />
+            android:name="user_model"
+            app:argType="com.example.autobot.models.UserModel" />
 
     </fragment>
 
@@ -50,8 +50,8 @@
         tools:layout="@layout/fragment_validation_code" >
 
         <argument
-            android:name="phone_number"
-            app:argType="string" />
+            android:name="user_model"
+            app:argType="com.example.autobot.models.UserModel" />
 
     </fragment>
 

@@ -16,6 +16,8 @@ import com.example.autobot.R
 import com.example.autobot.databinding.FragmentSignupBinding
 import com.example.autobot.extensions.hide
 import com.example.autobot.extensions.show
+import com.example.autobot.extensions.showSnackBar
+import com.example.autobot.models.UserModel
 import com.example.autobot.mvp.signup.SignUpContract
 import com.example.autobot.mvp.signup.SignUpPresenter
 import com.google.android.material.snackbar.Snackbar
@@ -50,7 +52,7 @@ class SignupFragment : Fragment(), SignUpContract.View {
         }
 
         binding.buttonSignup.setOnClickListener {
-            presenter.isValid()
+            presenter.isValid(binding.inputPhone.text.toString())
         }
 
         phoneTextWatcher = object : TextWatcher {
@@ -106,6 +108,19 @@ class SignupFragment : Fragment(), SignUpContract.View {
                 inputConfirmPassword = binding.inputConfirmPassword
             )
         }
+
+        fillInputsToTest()
+    }
+
+    override fun showSnackbar(message: String) {
+        requireView().showSnackBar(message = message)
+    }
+
+    private fun fillInputsToTest() {
+        binding.inputPhone.setText("53999999999")
+        binding.inputName.setText("Gean Teste")
+        binding.inputNewPassword.setText("123456")
+        binding.inputConfirmPassword.setText("123456")
     }
 
     override fun displayErrorMessage() {
@@ -119,8 +134,16 @@ class SignupFragment : Fragment(), SignUpContract.View {
     override fun goToSMSCodeValidationScreen() {
         findNavController().navigate(
             SignupFragmentDirections.actionSignupFragmentToValidationFragment(
-                binding.inputPhone.text.toString()
+                getUserDataFromInput()
             )
+        )
+    }
+
+    private fun getUserDataFromInput(): UserModel {
+        return UserModel(
+            phone = binding.inputPhone.text.toString(), // phone is masked
+            name = binding.inputName.text.toString(),
+            password = binding.inputConfirmPassword.text.toString()
         )
     }
 

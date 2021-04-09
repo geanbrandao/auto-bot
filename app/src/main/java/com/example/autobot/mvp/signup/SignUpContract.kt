@@ -20,10 +20,11 @@ interface SignUpContract {
 
         fun hideErrorOnInput(labelError: AppCompatTextView, input: AppCompatEditText)
         fun fillPhoneInputWithMask(phoneMasked: String)
+        fun showSnackbar(message: String)
     }
 
     interface Presenter : BasePresenter {
-        fun isValid()
+        fun isValid(phone: String)
         fun isValidName(name: String, labelError: AppCompatTextView, input: AppCompatEditText)
         fun isValidPhone(phone: String, labelError: AppCompatTextView, input: AppCompatEditText)
         fun formatPhoneInput(phone: String)

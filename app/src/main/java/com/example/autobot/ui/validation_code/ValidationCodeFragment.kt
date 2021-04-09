@@ -1,15 +1,15 @@
 package com.example.autobot.ui.validation_code
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.autobot.R
 import com.example.autobot.databinding.FragmentValidationCodeBinding
+import com.example.autobot.extensions.showSnackBar
 import com.example.autobot.mvp.validation_code.ValidationCodeContract
 import com.example.autobot.mvp.validation_code.ValidationCodePresenter
 import com.google.firebase.FirebaseException
@@ -32,9 +32,9 @@ class ValidationCodeFragment : Fragment(), ValidationCodeContract.View {
 
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var verificationId: String
+//    private lateinit var verificationId: String
 
-    private var storedVerificationId: String? = ""
+    private lateinit var storedVerificationId: String
 
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
 
@@ -57,8 +57,8 @@ class ValidationCodeFragment : Fragment(), ValidationCodeContract.View {
 
     private fun createListeners() {
 
-        val phoneNumber = args.phoneNumber
-        binding.textLabel.text = getString(R.string.fragment_validation_text_label, phoneNumber)
+        val userModel = args.userModel
+        binding.textLabel.text = getString(R.string.fragment_validation_text_label, userModel)
         binding.inputSmsCode.doOnTextChanged { text, _, _, _ ->
             presenter.isSMSCodevalid(text.toString())
         }
@@ -67,11 +67,15 @@ class ValidationCodeFragment : Fragment(), ValidationCodeContract.View {
             verifySigninCode()
         }
 
-        val phoneWithCountryCode = "+55".plus(phoneNumber.filter { it.isDigit() })
-        sendMessage(phoneWithCountryCode)
-//        createPhoneAuthCallbacks()
-//        startPhoneNumberVerification(phoneWithCountryCode)
+        val phoneWithCountryCode = "+55".plus(userModel.phone.filter { it.isDigit() })
+//        sendMessage(phoneWithCountryCode)
+        createPhoneAuthCallbacks()
+        startPhoneNumberVerification(phoneWithCountryCode)
 
+    }
+
+    override fun showSnackbar(message: String) {
+        requireView().showSnackBar(message = message)
     }
 
     private fun createPhoneAuthCallbacks() {
@@ -138,8 +142,11 @@ class ValidationCodeFragment : Fragment(), ValidationCodeContract.View {
                 // ...
                 Timber.d("###################### TERMINOU")
                 val user: FirebaseUser? = task.result?.user
-
                 user?.uid
+
+                val userModel = args.userModel
+                presenter.writeUser(userModel = userModel)
+
             } else {
 //                    Toast.makeText(context!!, "Sigin failed", Toast.LENGTH_LONG).show()
                 // Sign in failed, display a message and update the UI
@@ -161,60 +168,60 @@ class ValidationCodeFragment : Fragment(), ValidationCodeContract.View {
 
     }
 
-    private fun sendMessage(phone: String) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            phone,
-            30,
-            TimeUnit.SECONDS,
-            requireActivity(),
-            object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                override fun onVerificationCompleted(p0: PhoneAuthCredential) {
-                    Timber.tag("VerifyNumber").d("code:: ${p0.smsCode}")
-
-                    binding.inputSmsCode.setText(p0.smsCode)
-                }
-
-                override fun onVerificationFailed(e: FirebaseException) {
-                    Timber.tag("VerifyNumber").d("falhouu")
-                    e.printStackTrace()
-                    when (e) {
-                        is FirebaseAuthInvalidCredentialsException -> {
-                            // Invalid request
-                            // ...
-                            Timber.tag("VerifyNumber").e("Invalid request")
-                            Timber.tag("VerifyNumber").e(e)
-//                            showDialogError("Invalid request")
-                        }
-                        is FirebaseTooManyRequestsException -> {
-                            // The SMS quota for the project has been exceeded
-                            Timber.tag("VerifyNumber").e("The SMS quota for the project has been exceeded")
-                            Timber.tag("VerifyNumber").e(e)
-//                            showDialogError("The SMS quota for the project has been exceeded")
-                        }
-                        else -> {
-                            Timber.tag("VerifyNumber").e(e)
-//                            showDialogError(e.message.toString())
-                        }
-                    }
-                }
-
-                override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
-                    Timber.tag("VerifyNumber").d("p0 - $p0")
-                    Timber.tag("VerifyNumber").d("p1 - $p1")
-                    verificationId = p0
-                    Toast.makeText(requireContext(), "Codigo SMS enviado aguarde aqui", Toast.LENGTH_LONG).show()
-                }
-
-                override fun onCodeAutoRetrievalTimeOut(p0: String) {
-//                    Toast.makeText(requireContext(), "Timeout, tenta mandar o SMS de novo - $p0", Toast.LENGTH_LONG).show()
-                }
-            })
-
-    }
+//    private fun sendMessage(phone: String) {
+//        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+//            phone,
+//            30,
+//            TimeUnit.SECONDS,
+//            requireActivity(),
+//            object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+//                override fun onVerificationCompleted(p0: PhoneAuthCredential) {
+//                    Timber.tag("VerifyNumber").d("code:: ${p0.smsCode}")
+//
+//                    binding.inputSmsCode.setText(p0.smsCode)
+//                }
+//
+//                override fun onVerificationFailed(e: FirebaseException) {
+//                    Timber.tag("VerifyNumber").d("falhouu")
+//                    e.printStackTrace()
+//                    when (e) {
+//                        is FirebaseAuthInvalidCredentialsException -> {
+//                            // Invalid request
+//                            // ...
+//                            Timber.tag("VerifyNumber").e("Invalid request")
+//                            Timber.tag("VerifyNumber").e(e)
+////                            showDialogError("Invalid request")
+//                        }
+//                        is FirebaseTooManyRequestsException -> {
+//                            // The SMS quota for the project has been exceeded
+//                            Timber.tag("VerifyNumber").e("The SMS quota for the project has been exceeded")
+//                            Timber.tag("VerifyNumber").e(e)
+////                            showDialogError("The SMS quota for the project has been exceeded")
+//                        }
+//                        else -> {
+//                            Timber.tag("VerifyNumber").e(e)
+////                            showDialogError(e.message.toString())
+//                        }
+//                    }
+//                }
+//
+//                override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
+//                    Timber.tag("VerifyNumber").d("p0 - $p0")
+//                    Timber.tag("VerifyNumber").d("p1 - $p1")
+//                    verificationId = p0
+//                    Toast.makeText(requireContext(), "Codigo SMS enviado aguarde aqui", Toast.LENGTH_LONG).show()
+//                }
+//
+//                override fun onCodeAutoRetrievalTimeOut(p0: String) {
+////                    Toast.makeText(requireContext(), "Timeout, tenta mandar o SMS de novo - $p0", Toast.LENGTH_LONG).show()
+//                }
+//            })
+//
+//    }
 
     private fun verifySigninCode() {
         val code = binding.inputSmsCode.text.toString()
-        val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(verificationId ?: "", code)
+        val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(storedVerificationId ?: "", code)
         signInWithPhoneAuthCredential(credential)
     }
 

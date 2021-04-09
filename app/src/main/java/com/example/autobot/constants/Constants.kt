@@ -26,4 +26,14 @@ object Constants {
     const val ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH = "Senhas não são iguais"
 
     const val ERROR_MESSAGE_SMS_CODE_LENGHT = "O código sms precisa ter 6 números"
+
+//    DATABASE
+    const val DATABASE_CHILD_USERS = "users"
+    const val DATABASE_CHILD_CHATS = "chats"
+
+    // JWT
+    const val JWT_FIELD_PHONE = "user_phone"
+    const val JWT_FIELD_PASSWORD = "user_password"
+    const val JWT_SECRET_KEY = "secret_key"
+
 }
