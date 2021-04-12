@@ -11,6 +11,10 @@ android {
 
     defaultConfig {
         applicationId "com.example.autobot"
+        /**
+         * utilize uma minSdkVersion 21,
+         * para poder utilizar as mais recursos do android
+         */
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1

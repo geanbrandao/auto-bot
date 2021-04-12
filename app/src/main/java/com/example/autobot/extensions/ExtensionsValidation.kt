@@ -10,6 +10,13 @@ import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_REQU
 import com.example.autobot.ui.signup.SignupFragment.Companion.ERROR_MESSAGE_SECOND_NAME
 import com.example.autobot.ui.signup.SignupFragment.Companion.NO_ERROR_MESSAGE
 
+
+/**
+ * Você está usando extensions para validar regras de dominio,
+ * isso não é bom por que as regras de validações podem ser diferentes e dessa forma não fica explicito
+ * seria interessante criar uma classe LoginValidator ou mover essa validação para o presenter
+ */
+
 fun String.isValidName(): String {
     if (this.trim().isEmpty()) return ERROR_MESSAGE_REQUIRED_FIELD
     val arrayName = this.trim().split(" ")
@@ -38,3 +45,6 @@ fun String.isPasswordsMatchs(confirmPassword: String): String {
     if (this != confirmPassword) return ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH
     return NO_ERROR_MESSAGE
 }
+/**
+ * sempre deixa uma linha vazia ao fim do arquivo, também é uma convenção
+ */

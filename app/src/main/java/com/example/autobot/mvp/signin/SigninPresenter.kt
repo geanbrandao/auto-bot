@@ -4,6 +4,9 @@ import com.example.autobot.constants.Constants.MASK_PHONE_NUMBER
 import com.example.autobot.extensions.isValidPassword
 import com.example.autobot.extensions.isValidPhone
 
+/**
+ * Receba essa propriedade como final, não faz sentido seu presenter receber uma view como propriedade nula
+ */
 class SigninPresenter(private var view: SigninContract.View?) : SigninContract.Presenter {
 
     private var _isValidPhone: Boolean = false
@@ -21,6 +24,9 @@ class SigninPresenter(private var view: SigninContract.View?) : SigninContract.P
         view?.enableButtonLogin(isEnabled = isEnabled())
     }
 
+    /**
+     * o ideal seria criar uma textwatcher que faz a mascara de telefone e não fazer a mascara no presenter
+     */
     override fun formatPhoneInput(phone: String) {
         val cleanPhoneNumber = phone.filter { it.isDigit() }
         var mask = MASK_PHONE_NUMBER
@@ -50,3 +56,6 @@ class SigninPresenter(private var view: SigninContract.View?) : SigninContract.P
         view = null
     }
 }
+/**
+ * sempre deixa uma linha vazia ao fim do arquivo, também é uma convenção
+ */

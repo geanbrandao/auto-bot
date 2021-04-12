@@ -47,3 +47,6 @@ interface SignUpContract {
         )
     }
 }
+/**
+ * sempre deixa uma linha vazia ao fim do arquivo, também é uma convenção
+ */

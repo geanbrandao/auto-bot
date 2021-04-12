@@ -24,7 +24,16 @@ import java.util.regex.Pattern.compile
 
 class SignupFragment : Fragment(), SignUpContract.View {
 
+    /**
+     * por convenção as companion objects fica ao fim do arquivo, de uma olhada nesse link
+     * https://kotlinlang.org/docs/coding-conventions.html#interface-implementation-layout
+     */
     companion object {
+        /**
+         * essas constantes deveriam estar no strings.xml, e ser recuperadas pelo getString(),
+         * eu verifiquei a ExtensionsValidation o ideal seria você lançar uma exceção ou pelo menos
+         * retorne a constante da string do resources R.string.alguma_string
+         */
         const val NO_ERROR_MESSAGE = ""
         const val ERROR_MESSAGE_REQUIRED_FIELD = "Campo obrigatorio"
         const val ERROR_MESSAGE_NEED_TWO_NAMES = "Necessário nome e sobrenome"
@@ -46,9 +55,15 @@ class SignupFragment : Fragment(), SignUpContract.View {
         )
     }
 
+    /**
+     * Poderia ser uma propriedade do tipo final, por que não há necessidade de reinicializar sempre
+     */
     override lateinit var presenter: SignUpPresenter
     private lateinit var binding: FragmentSignupBinding
 
+    /**
+     * Poderia ser uma propriedade do tipo final, por que não há necessidade de reinicializar sempre
+     */
     private lateinit var phoneTextWatcher: TextWatcher
 
     override fun onCreateView(
@@ -67,6 +82,11 @@ class SignupFragment : Fragment(), SignUpContract.View {
     }
 
     private fun createListeners() {
+        /**
+         * nesse ponto vc poderia fazer assim presenter.onSignIpClicked()
+         * e seu presenter chamar view.goToSignIpFragment()
+         * dessa forma vc mantem o controle do fluxo no presenter
+         */
         binding.textActionSignin.setOnClickListener {
             findNavController().navigate(R.id.action_signupFragment_to_signinFragment)
         }
@@ -85,6 +105,11 @@ class SignupFragment : Fragment(), SignUpContract.View {
             }
 
             override fun afterTextChanged(s: Editable?) {
+                /**
+                 * deve ter sido feito isso por que provavelmente ouve alguma recursividade
+                 * o ideal seria criar uma textwatcher que faz a mascara de telefone e não fazer a mascara no presenter
+                 * adicionar e remover o textwatcher aqui é um esforço desnecessario
+                 */
                 binding.inputPhone.removeTextChangedListener(this)
                 presenter.formatPhoneInput(s.toString())
             }
@@ -173,3 +198,6 @@ class SignupFragment : Fragment(), SignUpContract.View {
         super.onDestroy()
     }
 }
+/**
+ * sempre deixa uma linha vazia ao fim do arquivo, também é uma convenção
+ */
