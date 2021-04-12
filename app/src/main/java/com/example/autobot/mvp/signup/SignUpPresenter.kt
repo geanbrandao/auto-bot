@@ -34,7 +34,7 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
             view?.showSnackbar("O número $phone já está cadastrado.")
         }.addOnFailureListener {
             Timber.d("DEBUG3 - User do not exist")
-            view?.goToSMSCodeValidationScreen()
+            view?.navigateToSMSCodeValidationScreen()
         }
     }
 
@@ -140,5 +140,9 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
 
     fun  isEnabled(): Boolean {
         return _isValidPhone and _isValidName and _isValidNewPassword and _isValidConfirmPassword and _isPasswordsMatchs
+    }
+
+    override fun onSigninClick() {
+        view?.navigateToSignin()
     }
 }

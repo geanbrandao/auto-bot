@@ -40,7 +40,7 @@ class SigninFragment : Fragment(), SigninContract.View {
 
     private fun createListeners() {
         binding.textActionSignup.setOnClickListener {
-            findNavController().navigate(R.id.action_signinFragment_to_signupFragment)
+            presenter.onSignupClick()
         }
 
         binding.buttonSignin.setOnClickListener {
@@ -85,6 +85,10 @@ class SigninFragment : Fragment(), SigninContract.View {
 
     override fun enableButtonLogin(isEnabled: Boolean) {
         binding.buttonSignin.isEnabled = isEnabled
+    }
+
+    override fun navigateToSignup() {
+        findNavController().navigate(SigninFragmentDirections.actionSigninFragmentToSignupFragment())
     }
 
     override fun onDestroy() {

@@ -11,6 +11,7 @@ interface SigninContract {
         fun displaySuccessToast()
         fun enableButtonLogin(isEnabled: Boolean)
         fun fillPhoneInputWithMask(phoneMasked: String)
+        fun navigateToSignup()
     }
 
     interface Presenter : BasePresenter {
@@ -18,5 +19,6 @@ interface SigninContract {
         fun isValidPhone(phone: String)
         fun formatPhoneInput(phone: String)
         fun isValidPassword(newPassword: String)
+        fun onSignupClick()
     }
 }

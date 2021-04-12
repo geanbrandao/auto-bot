@@ -48,7 +48,7 @@ class SignupFragment : Fragment(), SignUpContract.View {
 
     private fun createListeners() {
         binding.textActionSignin.setOnClickListener {
-            findNavController().navigate(R.id.action_signupFragment_to_signinFragment)
+            presenter.onSigninClick()
         }
 
         binding.buttonSignup.setOnClickListener {
@@ -112,6 +112,10 @@ class SignupFragment : Fragment(), SignUpContract.View {
         fillInputsToTest()
     }
 
+    override fun navigateToSignin () {
+        findNavController().navigate(SignupFragmentDirections.actionSignupFragmentToSigninFragment())
+    }
+
     override fun showSnackbar(message: String) {
         requireView().showSnackBar(message = message)
     }
@@ -131,7 +135,7 @@ class SignupFragment : Fragment(), SignUpContract.View {
         Snackbar.make(binding.root, "Cadastro realizado", Snackbar.LENGTH_SHORT).show()
     }
 
-    override fun goToSMSCodeValidationScreen() {
+    override fun navigateToSMSCodeValidationScreen() {
         findNavController().navigate(
             SignupFragmentDirections.actionSignupFragmentToValidationFragment(
                 getUserDataFromInput()

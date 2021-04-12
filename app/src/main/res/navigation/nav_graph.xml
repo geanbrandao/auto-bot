@@ -22,9 +22,9 @@
             android:id="@+id/action_signupFragment_to_validationFragment"
             app:destination="@id/validation_fragment" />
 
-        <argument
-            android:name="user_model"
-            app:argType="com.example.autobot.models.UserModel" />
+<!--        <argument-->
+<!--            android:name="user_model"-->
+<!--            app:argType="com.example.autobot.models.UserModel" />-->
 
     </fragment>
 

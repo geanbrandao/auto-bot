@@ -46,6 +46,10 @@ class SigninPresenter(private var view: SigninContract.View?) : SigninContract.P
         return _isValidPhone and _isValidPassword
     }
 
+    override fun onSignupClick() {
+        view?.navigateToSignup()
+    }
+
     override fun onDestroy() {
         view = null
     }
