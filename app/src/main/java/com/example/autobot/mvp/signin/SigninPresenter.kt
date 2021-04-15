@@ -3,6 +3,8 @@ package com.example.autobot.mvp.signin
 import com.example.autobot.constants.Constants.MASK_PHONE_NUMBER
 import com.example.autobot.extensions.isValidPassword
 import com.example.autobot.extensions.isValidPhone
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class SigninPresenter(private var view: SigninContract.View?) : SigninContract.Presenter {
 
@@ -48,6 +50,16 @@ class SigninPresenter(private var view: SigninContract.View?) : SigninContract.P
 
     override fun onSignupClick() {
         view?.navigateToSignup()
+    }
+
+    fun onSiginClick(phone: String, password: String) {
+        // try to login
+        val user = Firebase.auth.currentUser
+
+    }
+
+    private fun checkIfUserExistInDatabase() {
+
     }
 
     override fun onDestroy() {

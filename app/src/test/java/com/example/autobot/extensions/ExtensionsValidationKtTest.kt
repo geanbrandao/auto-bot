@@ -1,6 +1,13 @@
 package com.example.autobot.extensions
 
-import com.example.autobot.ui.signup.SignupFragment
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_FIRST_NAME
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_INVALID_PHONE
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_NEED_TWO_NAMES
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_PASSWORD_MIN_LENGHT
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_REQUIRED_FIELD
+import com.example.autobot.constants.Constants.ERROR_MESSAGE_SECOND_NAME
+import com.example.autobot.constants.Constants.NO_ERROR_MESSAGE
 import org.hamcrest.CoreMatchers
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -19,7 +26,8 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_REQUIRED_FIELD))
+            CoreMatchers.`is`(CoreMatchers.equalTo(ERROR_MESSAGE_REQUIRED_FIELD))
+
         )
         assertThat(
             isValid,
@@ -34,7 +42,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_NEED_TWO_NAMES))
+            CoreMatchers.`is`(CoreMatchers.equalTo(ERROR_MESSAGE_NEED_TWO_NAMES))
         )
         assertThat(
             isValid,
@@ -49,7 +57,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_FIRST_NAME))
+            CoreMatchers.`is`(CoreMatchers.equalTo(ERROR_MESSAGE_FIRST_NAME))
         )
         assertThat(
             isValid,
@@ -64,7 +72,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_SECOND_NAME))
+            CoreMatchers.`is`(CoreMatchers.equalTo(ERROR_MESSAGE_SECOND_NAME))
         )
         assertThat(
             isValid,
@@ -79,7 +87,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.NO_ERROR_MESSAGE))
+            CoreMatchers.`is`(CoreMatchers.equalTo(NO_ERROR_MESSAGE))
         )
         assertThat(isValid, CoreMatchers.`is`(CoreMatchers.equalTo(IS_VALID)))
     }
@@ -91,7 +99,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_REQUIRED_FIELD))
+            CoreMatchers.`is`(CoreMatchers.equalTo(ERROR_MESSAGE_REQUIRED_FIELD))
         )
         assertThat(
             isValid,
@@ -106,7 +114,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_INVALID_PHONE))
+            CoreMatchers.`is`(CoreMatchers.equalTo(ERROR_MESSAGE_INVALID_PHONE))
         )
         assertThat(
             isValid,
@@ -121,7 +129,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.NO_ERROR_MESSAGE))
+            CoreMatchers.`is`(CoreMatchers.equalTo(NO_ERROR_MESSAGE))
         )
         assertThat(isValid, CoreMatchers.`is`(CoreMatchers.equalTo(IS_VALID)))
     }
@@ -133,7 +141,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_REQUIRED_FIELD))
+            CoreMatchers.`is`(CoreMatchers.equalTo(ERROR_MESSAGE_REQUIRED_FIELD))
         )
         assertThat(
             isValid,
@@ -148,7 +156,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_PASSWORD_MIN_LENGHT))
+            CoreMatchers.`is`(CoreMatchers.equalTo(ERROR_MESSAGE_PASSWORD_MIN_LENGHT))
         )
         assertThat(
             isValid,
@@ -163,7 +171,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.NO_ERROR_MESSAGE))
+            CoreMatchers.`is`(CoreMatchers.equalTo(NO_ERROR_MESSAGE))
         )
         assertThat(isValid, CoreMatchers.`is`(CoreMatchers.equalTo(IS_VALID)))
     }
@@ -176,7 +184,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_REQUIRED_FIELD))
+            CoreMatchers.`is`(CoreMatchers.equalTo(ERROR_MESSAGE_REQUIRED_FIELD))
         )
         assertThat(
             isValid,
@@ -192,7 +200,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_REQUIRED_FIELD))
+            CoreMatchers.`is`(CoreMatchers.equalTo(ERROR_MESSAGE_REQUIRED_FIELD))
         )
         assertThat(
             isValid,
@@ -208,7 +216,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH))
+            CoreMatchers.`is`(CoreMatchers.equalTo(ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH))
         )
         assertThat(
             isValid,
@@ -224,7 +232,7 @@ class ExtensionsValidationKtTest {
         val isValid = errorMessage.isEmpty()
         assertThat(
             errorMessage,
-            CoreMatchers.`is`(CoreMatchers.equalTo(SignupFragment.NO_ERROR_MESSAGE))
+            CoreMatchers.`is`(CoreMatchers.equalTo(NO_ERROR_MESSAGE))
         )
         assertThat(isValid, CoreMatchers.`is`(CoreMatchers.equalTo(IS_VALID)))
     }

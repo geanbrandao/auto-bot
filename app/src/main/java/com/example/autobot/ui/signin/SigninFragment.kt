@@ -44,7 +44,7 @@ class SigninFragment : Fragment(), SigninContract.View {
         }
 
         binding.buttonSignin.setOnClickListener {
-            presenter.isValid()
+            presenter.onSiginClick("", "")
         }
 
         phoneTextWatcher = object : TextWatcher {

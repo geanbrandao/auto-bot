@@ -108,7 +108,7 @@ class SignupFragment : Fragment(), SignUpContract.View {
                 inputConfirmPassword = binding.inputConfirmPassword
             )
         }
-
+        // TODO(Remover do commit)
         fillInputsToTest()
     }
 
@@ -120,6 +120,7 @@ class SignupFragment : Fragment(), SignUpContract.View {
         requireView().showSnackBar(message = message)
     }
 
+    // TODO(Remover do commit)
     private fun fillInputsToTest() {
         binding.inputPhone.setText("53999999999")
         binding.inputName.setText("Gean Teste")

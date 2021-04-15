@@ -4,6 +4,7 @@ import com.example.autobot.constants.Constants.DATABASE_CHILD_USERS
 import com.example.autobot.constants.Constants.JWT_FIELD_PASSWORD
 import com.example.autobot.constants.Constants.JWT_FIELD_PHONE
 import com.example.autobot.constants.Constants.JWT_SECRET_KEY
+import com.example.autobot.extensions.createJwtForNewUser
 import com.example.autobot.extensions.isValidSMSCode
 import com.example.autobot.models.UserModel
 import com.example.autobot.models.firebase_database.UserData
@@ -14,7 +15,8 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import timber.log.Timber
 
-class ValidationCodePresenter(private var view: ValidationCodeContract.View?): ValidationCodeContract.Preseter {
+class ValidationCodePresenter(private var view: ValidationCodeContract.View?) :
+    ValidationCodeContract.Preseter {
 
     private var _isSMSCodeValid: Boolean = false
 
@@ -55,18 +57,7 @@ class ValidationCodePresenter(private var view: ValidationCodeContract.View?): V
             .addOnFailureListener {
                 Timber.e(it)
                 val message = "Erro ao criar usuário"
-                 view?.showSnackbar(message)
+                view?.showSnackbar(message)
             }
-    }
-
-    private fun createJwtForNewUser(phone: String, password: String): String {
-        val jwt = Jwts.builder()
-            .claim(JWT_FIELD_PHONE, phone)
-            .claim(JWT_FIELD_PASSWORD, password)
-            .signWith(SignatureAlgorithm.HS256, AESEncyption.encrypt(JWT_SECRET_KEY))
-            .compact()
-
-        Timber.d("DEBUG3 - JWT $jwt")
-        return jwt
     }
 }
