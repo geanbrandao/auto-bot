@@ -16,6 +16,8 @@ import com.example.autobot.R
 import com.example.autobot.databinding.FragmentSignupBinding
 import com.example.autobot.extensions.hide
 import com.example.autobot.extensions.show
+import com.example.autobot.extensions.showSnackBar
+import com.example.autobot.models.UserModel
 import com.example.autobot.mvp.signup.SignUpContract
 import com.example.autobot.mvp.signup.SignUpPresenter
 import com.google.android.material.snackbar.Snackbar
@@ -23,28 +25,6 @@ import java.util.regex.Pattern
 import java.util.regex.Pattern.compile
 
 class SignupFragment : Fragment(), SignUpContract.View {
-
-    companion object {
-        const val NO_ERROR_MESSAGE = ""
-        const val ERROR_MESSAGE_REQUIRED_FIELD = "Campo obrigatorio"
-        const val ERROR_MESSAGE_NEED_TWO_NAMES = "Necessário nome e sobrenome"
-        const val ERROR_MESSAGE_FIRST_NAME = "Primeiro nome precisa ter mais de 2 letras"
-        const val ERROR_MESSAGE_SECOND_NAME = "Segundo nome precisa ter mais de 2 letras"
-
-        const val ERROR_MESSAGE_INVALID_PHONE = "Número de celular inválido"
-
-        const val ERROR_MESSAGE_PASSWORD_MIN_LENGHT = "A senha precisa ter no minimo 6 caracters"
-        const val ERROR_MESSAGE_PASSWORDS_DO_NOT_MATCH = "Senhas não são iguais"
-        val emailRegex: Pattern = compile(
-            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
-                    "\\@" +
-                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-                    "(" +
-                    "\\." +
-                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
-                    ")+"
-        )
-    }
 
     override lateinit var presenter: SignUpPresenter
     private lateinit var binding: FragmentSignupBinding
@@ -68,11 +48,11 @@ class SignupFragment : Fragment(), SignUpContract.View {
 
     private fun createListeners() {
         binding.textActionSignin.setOnClickListener {
-            findNavController().navigate(R.id.action_signupFragment_to_signinFragment)
+            presenter.onSigninClick()
         }
 
         binding.buttonSignup.setOnClickListener {
-            presenter.isValid()
+            presenter.isValid(binding.inputPhone.text.toString())
         }
 
         phoneTextWatcher = object : TextWatcher {
@@ -128,6 +108,24 @@ class SignupFragment : Fragment(), SignUpContract.View {
                 inputConfirmPassword = binding.inputConfirmPassword
             )
         }
+        // TODO(Remover do commit)
+        fillInputsToTest()
+    }
+
+    override fun navigateToSignin () {
+        findNavController().navigate(SignupFragmentDirections.actionSignupFragmentToSigninFragment())
+    }
+
+    override fun showSnackbar(message: String) {
+        requireView().showSnackBar(message = message)
+    }
+
+    // TODO(Remover do commit)
+    private fun fillInputsToTest() {
+        binding.inputPhone.setText("53999999999")
+        binding.inputName.setText("Gean Teste")
+        binding.inputNewPassword.setText("123456")
+        binding.inputConfirmPassword.setText("123456")
     }
 
     override fun displayErrorMessage() {
@@ -138,8 +136,20 @@ class SignupFragment : Fragment(), SignUpContract.View {
         Snackbar.make(binding.root, "Cadastro realizado", Snackbar.LENGTH_SHORT).show()
     }
 
-    override fun goToHomeFragment() {
-        TODO("Not yet implemented")
+    override fun navigateToSMSCodeValidationScreen() {
+        findNavController().navigate(
+            SignupFragmentDirections.actionSignupFragmentToValidationFragment(
+                getUserDataFromInput()
+            )
+        )
+    }
+
+    private fun getUserDataFromInput(): UserModel {
+        return UserModel(
+            phone = binding.inputPhone.text.toString(), // phone is masked
+            name = binding.inputName.text.toString(),
+            password = binding.inputConfirmPassword.text.toString()
+        )
     }
 
     override fun enableButtonCreate(isEnabled: Boolean) {

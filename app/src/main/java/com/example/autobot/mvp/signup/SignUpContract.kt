@@ -10,7 +10,7 @@ interface SignUpContract {
     interface View : BaseView<SignUpPresenter> {
         fun displayErrorMessage()
         fun displaySuccessToast()
-        fun goToHomeFragment()
+        fun navigateToSMSCodeValidationScreen()
         fun enableButtonCreate(isEnabled: Boolean)
         fun showErrorOnInput(
             errorMessage: String,
@@ -20,10 +20,12 @@ interface SignUpContract {
 
         fun hideErrorOnInput(labelError: AppCompatTextView, input: AppCompatEditText)
         fun fillPhoneInputWithMask(phoneMasked: String)
+        fun showSnackbar(message: String)
+        fun navigateToSignin ()
     }
 
     interface Presenter : BasePresenter {
-        fun isValid()
+        fun isValid(phone: String)
         fun isValidName(name: String, labelError: AppCompatTextView, input: AppCompatEditText)
         fun isValidPhone(phone: String, labelError: AppCompatTextView, input: AppCompatEditText)
         fun formatPhoneInput(phone: String)
@@ -45,5 +47,6 @@ interface SignUpContract {
             labelErrorConfirmPassword: AppCompatTextView,
             inputConfirmPassword: AppCompatEditText
         )
+        fun onSigninClick()
     }
 }

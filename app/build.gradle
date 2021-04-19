@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
 }
@@ -9,24 +10,41 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    def MYAPP_RELEASE_STORE_FILE="app/auto_bot_key.jks"
+    def MYAPP_RELEASE_KEY_ALIAS="key0"
+    def MYAPP_RELEASE_STORE_PASSWORD="K3rBoqJFh35eng7R"
+    def MYAPP_RELEASE_KEY_PASSWORD="K3rBoqJFh35eng7R"
+
     defaultConfig {
         applicationId "com.example.autobot"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        releaseSigningConfig  {
+            storeFile rootProject.file(MYAPP_RELEASE_STORE_FILE)
+            storePassword MYAPP_RELEASE_STORE_PASSWORD
+            keyAlias MYAPP_RELEASE_KEY_ALIAS
+            keyPassword MYAPP_RELEASE_KEY_PASSWORD
+        }
     }
 
     buildFeatures {
         viewBinding true
     }
 
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseSigningConfig
         }
     }
     compileOptions {
@@ -41,10 +59,9 @@ android {
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.8.0')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
 
-    def navigation_version = "2.3.4"
+    def navigation_version = "2.3.5"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
@@ -52,15 +69,29 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-database-ktx'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
+
+    implementation "androidx.browser:browser:1.3.0"
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
 
+    def timberVersion = '4.7.1'
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    implementation 'io.jsonwebtoken:jjwt:0.7.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    def appCenterSdkVersion = '4.1.0'
+    implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
+
+    
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

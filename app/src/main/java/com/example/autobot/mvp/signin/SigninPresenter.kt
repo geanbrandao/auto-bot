@@ -1,13 +1,20 @@
 package com.example.autobot.mvp.signin
 
+import com.example.autobot.constants.Constants
 import com.example.autobot.constants.Constants.MASK_PHONE_NUMBER
 import com.example.autobot.extensions.isValidPassword
 import com.example.autobot.extensions.isValidPhone
+import com.example.autobot.utils.AESEncyption
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class SigninPresenter(private var view: SigninContract.View?) : SigninContract.Presenter {
 
     private var _isValidPhone: Boolean = false
     private var _isValidPassword: Boolean = false
+
+    private val databaseReference = Firebase.database.reference
 
     override fun isValid() {
         view?.displaySuccessToast()
@@ -44,6 +51,26 @@ class SigninPresenter(private var view: SigninContract.View?) : SigninContract.P
 
     fun isEnabled(): Boolean {
         return _isValidPhone and _isValidPassword
+    }
+
+    override fun onSignupClick() {
+        view?.navigateToSignup()
+    }
+
+    fun onSiginClick(phone: String, password: String) {
+        // try to login
+        val user = Firebase.auth.currentUser
+
+    }
+
+    private fun checkIfUserExistInDatabase(phone: String) {
+        val userId = AESEncyption.encrypt(phone)
+        databaseReference.child(Constants.DATABASE_CHILD_USERS).child(userId).get()
+            .addOnSuccessListener {
+                // user já existe
+            }.addOnFailureListener {
+                // user não existe
+            }
     }
 
     override fun onDestroy() {

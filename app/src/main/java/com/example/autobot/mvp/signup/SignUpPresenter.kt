@@ -2,11 +2,16 @@ package com.example.autobot.mvp.signup
 
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
+import com.example.autobot.constants.Constants
 import com.example.autobot.constants.Constants.MASK_PHONE_NUMBER
 import com.example.autobot.extensions.isPasswordsMatchs
 import com.example.autobot.extensions.isValidName
 import com.example.autobot.extensions.isValidPassword
 import com.example.autobot.extensions.isValidPhone
+import com.example.autobot.utils.AESEncyption
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import timber.log.Timber
 
 class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.Presenter {
 
@@ -16,8 +21,21 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
     private var _isValidConfirmPassword: Boolean = false
     private var _isPasswordsMatchs: Boolean = false
 
-    override fun isValid() {
-        view?.displaySuccessToast()
+    private val databaseReference = Firebase.database.reference
+
+    override fun isValid(phone: String) {
+        checkIsUserExistInDatabase(phone = phone)
+    }
+
+    private fun checkIsUserExistInDatabase(phone: String) {
+        val userId = AESEncyption.encrypt(phone)
+        databaseReference.child(Constants.DATABASE_CHILD_USERS).child(userId).get().addOnSuccessListener {
+            Timber.d("DEBUG3 - User already exist in database")
+            view?.showSnackbar("O número $phone já está cadastrado.")
+        }.addOnFailureListener {
+            Timber.d("DEBUG3 - User do not exist")
+            view?.navigateToSMSCodeValidationScreen()
+        }
     }
 
     override fun formatPhoneInput(phone: String) {
@@ -120,7 +138,11 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
         }
     }
 
-    fun isEnabled(): Boolean {
+    fun  isEnabled(): Boolean {
         return _isValidPhone and _isValidName and _isValidNewPassword and _isValidConfirmPassword and _isPasswordsMatchs
+    }
+
+    override fun onSigninClick() {
+        view?.navigateToSignin()
     }
 }

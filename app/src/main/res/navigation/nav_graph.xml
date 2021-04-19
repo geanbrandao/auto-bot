@@ -3,30 +3,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/signupFragment">
+    app:startDestination="@id/signup_fragment">
 
     <fragment
-        android:id="@+id/signupFragment"
+        android:id="@+id/signup_fragment"
         android:name="com.example.autobot.ui.signup.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" >
+
         <action
             android:id="@+id/action_signupFragment_to_signinFragment"
-            app:destination="@id/signinFragment"
+            app:destination="@id/signin_fragment"
             app:launchSingleTop="true"
-            app:popUpTo="@id/signupFragment"
+            app:popUpTo="@id/signup_fragment"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_signupFragment_to_validationFragment"
+            app:destination="@id/validation_fragment" />
+
+<!--        <argument-->
+<!--            android:name="user_model"-->
+<!--            app:argType="com.example.autobot.models.UserModel" />-->
+
     </fragment>
+
     <fragment
-        android:id="@+id/signinFragment"
+        android:id="@+id/signin_fragment"
         android:name="com.example.autobot.ui.signin.SigninFragment"
         android:label="fragment_signin"
         tools:layout="@layout/fragment_signin" >
+
         <action
             android:id="@+id/action_signinFragment_to_signupFragment"
-            app:destination="@id/signupFragment"
+            app:destination="@id/signup_fragment"
             app:launchSingleTop="true"
-            app:popUpTo="@id/signinFragment"
+            app:popUpTo="@id/signin_fragment"
             app:popUpToInclusive="true" />
+
     </fragment>
+
+    <fragment
+        android:id="@+id/validation_fragment"
+        android:name="com.example.autobot.ui.validation_code.ValidationCodeFragment"
+        android:label="fragment_validation"
+        tools:layout="@layout/fragment_validation_code" >
+
+        <argument
+            android:name="user_model"
+            app:argType="com.example.autobot.models.UserModel" />
+
+    </fragment>
+
 </navigation>
