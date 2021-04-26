@@ -1,0 +1,60 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+  
+  desc "Check and format the code using ktlint"
+  lane :ktlint do
+    gradle(task: "ktlintCheck")
+    gradle(task: "ktlintFormat")
+  end
+
+ desc 'Build the Android application.'
+  lane :build do
+    gradle(task: 'clean')
+    gradle(task: 'assemble', build_type: 'release')
+  end
+
+  desc 'Build and upload to App Center.'
+  lane :betaAppCenter do
+  build
+  appcenter_upload(
+      api_token: ENV["TEST_APPCENTER_API_TOKEN"],
+      owner_name: ENV["TEST_APPCENTER_OWNER_NAME"],
+      app_name: ENV["APPCENTER_APP_NAME"],
+      file: ENV["APPCENTER_DISTRIBUTE_APK"],
+      notify_testers: true
+      )
+  end
+
+#  desc 'Build and upload to App Center.'
+#  lane :betaAppCenter2 do
+#  build
+#  appcenter_upload(
+#      api_token: "a948d644ea3772b912fb51088f932673aba31822",
+#      owner_name: "karlos867gean-gmail.com",
+#      app_name: "autobot",
+#      file: "./app/build/outputs/apk/release/app-release.apk",
+#      notify_testers: true
+#      )
+#  end
+
+end

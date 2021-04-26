@@ -1,5 +1,11 @@
 language: android
 dist: trusty
+
+install:
+  - bundle install
+script:
+  - fastlane all
+
 android:
   components:
     # Uncomment the lines below if you want to
