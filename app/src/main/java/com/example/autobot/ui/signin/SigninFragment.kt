@@ -17,9 +17,15 @@ import com.google.android.material.snackbar.Snackbar
 
 class SigninFragment : Fragment(), SigninContract.View {
 
+    /**
+     * Poderia ser uma propriedade do tipo final, por que não há necessidade de reinicializar sempre
+     */
     override lateinit var presenter: SigninPresenter
     private lateinit var binding: FragmentSigninBinding
 
+    /**
+     * Poderia ser uma propriedade do tipo final, por que não há necessidade de reinicializar sempre
+     */
     private lateinit var phoneTextWatcher: TextWatcher
 
     override fun onCreateView(
@@ -39,6 +45,11 @@ class SigninFragment : Fragment(), SigninContract.View {
     }
 
     private fun createListeners() {
+        /**
+         * nesse ponto vc poderia fazer assim presenter.onSignUpClicked()
+         * e seu presenter chamar view.goToSignUpFragment()
+         * dessa forma vc mantem o controle do fluxo no presenter
+         */
         binding.textActionSignup.setOnClickListener {
             findNavController().navigate(R.id.action_signinFragment_to_signupFragment)
         }
@@ -57,6 +68,11 @@ class SigninFragment : Fragment(), SigninContract.View {
             }
 
             override fun afterTextChanged(s: Editable?) {
+                /**
+                 * deve ter sido feito isso por que provavelmente ouve alguma recursividade
+                 * o ideal seria criar uma textwatcher que faz a mascara de telefone e não fazer a mascara no presenter
+                 * adicionar e remover o textwatcher aqui é um esforço desnecessario
+                 */
                 binding.inputPhone.removeTextChangedListener(this)
                 presenter.formatPhoneInput(phone = s.toString())
             }
@@ -80,6 +96,9 @@ class SigninFragment : Fragment(), SigninContract.View {
     }
 
     override fun displaySuccessToast() {
+        /**
+         * referenciar strings resources
+         */
         Snackbar.make(binding.root, "Login realizado", Snackbar.LENGTH_SHORT).show()
     }
 
@@ -92,3 +111,6 @@ class SigninFragment : Fragment(), SigninContract.View {
         super.onDestroy()
     }
 }
+/**
+ * sempre deixa uma linha vazia ao fim do arquivo, também é uma convenção
+ */

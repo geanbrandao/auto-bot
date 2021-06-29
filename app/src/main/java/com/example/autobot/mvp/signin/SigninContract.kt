@@ -20,3 +20,6 @@ interface SigninContract {
         fun isValidPassword(newPassword: String)
     }
 }
+/**
+ * sempre deixa uma linha vazia ao fim do arquivo, também é uma convenção
+ */

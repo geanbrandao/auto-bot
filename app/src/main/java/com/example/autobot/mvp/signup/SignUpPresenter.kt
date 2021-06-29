@@ -124,3 +124,6 @@ class SignUpPresenter(private var view: SignUpContract.View?) : SignUpContract.P
         return _isValidPhone and _isValidName and _isValidNewPassword and _isValidConfirmPassword and _isPasswordsMatchs
     }
 }
+/**
+ * sempre deixa uma linha vazia ao fim do arquivo, também é uma convenção
+ */
